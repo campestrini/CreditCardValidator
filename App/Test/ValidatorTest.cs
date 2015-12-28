@@ -52,10 +52,29 @@ namespace Test
             Equals(_rule.startingDigit, rule.startingDigit);
             Equals(_rule.length, rule.length);
         }
+
         [TestMethod]
+        [ExpectedException(typeof(ArgumentException), Validator.INVALID_CREDIT_CARD)]
         public void ValidatorShouldThrowExeceptionWithInvalidCcNumber()
         {
-            
+            _validator.evaluate(-1);
+        }
+
+        [TestMethod]
+        public void ValidatorShouldEvaluateAsValid()
+        {
+           Assert.IsTrue(_validator.evaluate(4111111111111111));
+           Assert.IsTrue(_validator.evaluate(4012888888881881));
+           Assert.IsTrue(_validator.evaluate(378282246310005));
+           Assert.IsTrue(_validator.evaluate(5105105105105100));
+        }
+
+        [TestMethod]
+        public void ValidatorShouldEvaluateAsInvalid()
+        {
+            Assert.IsTrue(_validator.evaluate(4111111111111));
+            Assert.IsTrue(_validator.evaluate(5105105105105106));
+            Assert.IsTrue(_validator.evaluate(9111111111111111));
         }
     }
 }
