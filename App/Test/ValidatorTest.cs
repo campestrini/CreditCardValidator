@@ -5,9 +5,15 @@ using App;
 
 namespace Test
 {
-    [TestClass]
     public class ValidatorTest
     {
+        private TestContext testContextInstance;
+        public TestContext TestContext
+        {
+            get { return testContextInstance; }
+            set { testContextInstance = value; }
+        }
+
         private static Validator _validator = new Validator();
         private static int[] _startingDigit = { 23 };
         private static int[] _length = { 16 };
@@ -57,25 +63,31 @@ namespace Test
         [ExpectedException(typeof(ArgumentException), Validator.INVALID_CREDIT_CARD)]
         public void ValidatorShouldThrowExeceptionWithInvalidCcNumber()
         {
-            _validator.evaluate(0);
-            _validator.evaluate(-1);
+            _validator.isValid(0);
+            _validator.isValid(-1);
         }
 
         [TestMethod]
         public void ValidatorShouldEvaluateAsValid()
         {
-           Assert.IsTrue(_validator.evaluate(4111111111111111));
-           Assert.IsTrue(_validator.evaluate(4012888888881881));
-           Assert.IsTrue(_validator.evaluate(378282246310005));
-           Assert.IsTrue(_validator.evaluate(5105105105105100));
+           Assert.IsTrue(_validator.isValid(4111111111111111));
+           Assert.IsTrue(_validator.isValid(4012888888881881));
+           Assert.IsTrue(_validator.isValid(378282246310005));
+           Assert.IsTrue(_validator.isValid(5105105105105100));
         }
 
         [TestMethod]
         public void ValidatorShouldEvaluateAsInvalid()
         {
-            Assert.IsFalse(_validator.evaluate(4111111111111));
-            Assert.IsFalse(_validator.evaluate(5105105105105106));
-            Assert.IsFalse(_validator.evaluate(9111111111111111));
+            Assert.IsFalse(_validator.isValid(4111111111111));
+            Assert.IsFalse(_validator.isValid(5105105105105106));
+            Assert.IsFalse(_validator.isValid(9111111111111111));
+        }
+
+        [TestMethod]
+        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV", "rules.csv", "rules#csv", DataAccessMethod.Sequential)]
+        public void ValidatorShouldGetCorrectFlag()
+        {
         }
     }
 }

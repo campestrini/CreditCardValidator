@@ -11,7 +11,13 @@ namespace App
         static void Main()
         {
             Validator validator = new Validator();
-            validator.evaluate(4111111111111111);
+            Rule amexRule = new Rule(new int[] { 34, 37 }, new int[] { 15 });
+            validator.addRule("AMEX", amexRule);
+
+            long creditCard = 4111111111111111;
+            bool valid = validator.isValid(creditCard);
+
+
         }
     }
 }

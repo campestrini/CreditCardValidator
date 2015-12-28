@@ -46,7 +46,7 @@ namespace App
             return rules[flag];
         }
 
-        public bool evaluate(long creditCardNumber)
+        public bool isValid(long creditCardNumber)
         {
 
             bool valid = false;
