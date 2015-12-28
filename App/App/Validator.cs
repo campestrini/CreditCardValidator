@@ -49,7 +49,7 @@ namespace App
         public bool isValid(long creditCardNumber)
         {
 
-            bool valid = false;
+            bool isValid = false;
 
             if (creditCardNumber <= 0)
             {
@@ -58,7 +58,6 @@ namespace App
 
             List<int> digits = ListOfDigits(creditCardNumber);
             digits.Reverse();
-
 
             for (int i = 1; i < digits.Count; i++)
             {
@@ -79,15 +78,15 @@ namespace App
 
             if (finalSum % 10 == 0)
             {
-                valid = true;
+                isValid = true;
             }
 
-            return valid;
+            return isValid;
 
 
         }
 
-        public static int SumOfDigits(List<int> digits)
+        private static int SumOfDigits(List<int> digits)
         {
             int sum = 0;
 
@@ -98,7 +97,7 @@ namespace App
             return sum;
         }
 
-        public static List<int> ListOfDigits(long number)
+        private static List<int> ListOfDigits(long number)
         {
             List<int> digits = new List<int>();
             foreach (char n in number.ToString().ToCharArray())

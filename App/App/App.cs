@@ -17,7 +17,6 @@ namespace App
             long creditCard = 4111111111111111;
             bool valid = validator.isValid(creditCard);
 
-
         }
     }
 }
