@@ -5,6 +5,7 @@ using App;
 
 namespace Test
 {
+    [TestClass]
     public class ValidatorTest
     {
         private TestContext testContextInstance;
@@ -82,6 +83,14 @@ namespace Test
             Assert.IsFalse(_validator.isValid(4111111111111));
             Assert.IsFalse(_validator.isValid(5105105105105106));
             Assert.IsFalse(_validator.isValid(9111111111111111));
+        }
+
+        [TestMethod]
+        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV", "validNumbers.csv", "validNumbers#csv", DataAccessMethod.Sequential), DeploymentItem("validNumbers.csv")]
+        public void ValidatorShouldEvaluateAsValidWithFile()
+
+        {
+            Assert.IsTrue(_validator.isValid(Convert.ToInt64(TestContext.DataRow["FirstNumber"])));
         }
 
     }
