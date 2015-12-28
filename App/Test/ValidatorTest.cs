@@ -57,6 +57,7 @@ namespace Test
         [ExpectedException(typeof(ArgumentException), Validator.INVALID_CREDIT_CARD)]
         public void ValidatorShouldThrowExeceptionWithInvalidCcNumber()
         {
+            _validator.evaluate(0);
             _validator.evaluate(-1);
         }
 
@@ -72,9 +73,9 @@ namespace Test
         [TestMethod]
         public void ValidatorShouldEvaluateAsInvalid()
         {
-            Assert.IsTrue(_validator.evaluate(4111111111111));
-            Assert.IsTrue(_validator.evaluate(5105105105105106));
-            Assert.IsTrue(_validator.evaluate(9111111111111111));
+            Assert.IsFalse(_validator.evaluate(4111111111111));
+            Assert.IsFalse(_validator.evaluate(5105105105105106));
+            Assert.IsFalse(_validator.evaluate(9111111111111111));
         }
     }
 }
