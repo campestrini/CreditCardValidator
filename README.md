@@ -21,18 +21,16 @@ Evaluate if credit card number is valid.
 ```
 long creditCard = 378282246310005;
 bool valid = validator.isValid(creditCard);
-/// true
 ```
-
 Get the credit card flag:
 ```
 string flag = validator.evaluateFlag(creditCard);
-/// AMEX
 ```
+Evaluates flag as "AMEX".
 
-Or generate a output message:
+Maybe you want to generate an output message:
 ```
 ValidatorHelper helper = new ValidatorHelper(validator);
-string message = helper.buildValidatonMessage(378282246310005)
-/// Generates "AMEX: 378282246310005 (valid)."
+string message = helper.validationMessage(378282246310005)
 ```
+The string "AMEX: 378282246310005 (valid)." will be generated.

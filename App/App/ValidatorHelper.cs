@@ -2,8 +2,8 @@
 {
     public class ValidatorHelper
     {
-        public const string VALID_CREDIT_CARD = "Valid.";
-        public const string INVALID_CREDIT_CARD = "Invalid.";
+        public const string VALID_CREDIT_CARD = "Valid";
+        public const string INVALID_CREDIT_CARD = "Invalid";
 
         private Validator _validator;
 
@@ -13,7 +13,7 @@
             this._validator = validator;
         }
 
-        public string buildValidatonMessage(long creditCardNumber)
+        public string validationMessage(long creditCardNumber)
         {
             string isValid = INVALID_CREDIT_CARD;
 
