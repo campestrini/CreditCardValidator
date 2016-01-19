@@ -15,17 +15,24 @@ namespace Test
             set { testContextInstance = value; }
         }
 
-        private static Validator _validator = new Validator();
-        private static int[] _startingDigit = { 23 };
-        private static int[] _length = { 16 };
+        private static Validator _validator;
+        private static int[] _startingDigit = { 4 };
+        private static int[] _length = { 13, 16 };
         private static string _flag = "Visa";
 
         private static Rule _rule = new Rule(_startingDigit, _length);
 
+        [ClassInitialize()]
+        public static void ClassInit(TestContext context)
+        {
+            _validator = TestHelper.generateValidator();
+        }
+
         [TestMethod]
         public void ValidatorShouldBeInitializedWithNoRules()
         {
-            Assert.IsFalse(_validator.hasRules());
+            Validator validator = new Validator();
+            Assert.IsFalse(validator.hasRules());
         }
 
         [TestMethod]
@@ -45,7 +52,7 @@ namespace Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(KeyNotFoundException), Validator.FLAG_NOT_FOUND)]
+        [ExpectedException(typeof(KeyNotFoundException), Validator.RULE_NOT_FOUND)]
         public void ValidatorShouldThrowExceptionWhenRuleNotExist()
         {
             _validator.getRule("ABC");
@@ -54,7 +61,6 @@ namespace Test
         [TestMethod]
         public void RuleShouldBeStoredProperly()
         {
-            _validator.addRule(_flag, _rule);
             Rule rule = _validator.getRule(_flag);
             Equals(_rule.startingDigit, rule.startingDigit);
             Equals(_rule.length, rule.length);
@@ -88,9 +94,17 @@ namespace Test
         [TestMethod]
         [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV", "validNumbers.csv", "validNumbers#csv", DataAccessMethod.Sequential), DeploymentItem("validNumbers.csv")]
         public void ValidatorShouldEvaluateAsValidWithFile()
-
         {
             Assert.IsTrue(_validator.isValid(Convert.ToInt64(TestContext.DataRow["FirstNumber"])));
+        }
+        [TestMethod]
+        public void ValidatorShouldEvaluateFlagProperly()
+        {
+            Equals("VISA", _validator.evaluateFlag(4111111111111111));
+            Equals("VISA", _validator.evaluateFlag(4012888888881881));
+            Equals("AMEX", _validator.evaluateFlag(378282246310005));
+            Equals("Discover", _validator.evaluateFlag(6011111111111117));
+            Equals("MasterCard", _validator.evaluateFlag(5105105105105100));
         }
 
     }

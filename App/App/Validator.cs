@@ -7,9 +7,9 @@ namespace App
     {
         public const string INVALID_FLAG = "Credit card flag must have a value.";
         public const string INVALID_RULE = "Rule can't be null.";
-        public const string FLAG_NOT_FOUND = "There is no rule for this flag.";
+        public const string RULE_NOT_FOUND = "There is no rule for this flag.";
         public const string INVALID_CREDIT_CARD = "Credit card number must be greater than zero.";
-
+        public const string FLAG_NOT_FOUND = "Unknown";
         public Dictionary<string, Rule> rules;
 
         public Validator()
@@ -40,7 +40,7 @@ namespace App
         {
             if (!rules.ContainsKey(flag))
             {
-                throw new KeyNotFoundException(FLAG_NOT_FOUND);
+                throw new KeyNotFoundException(RULE_NOT_FOUND);
             }
 
             return rules[flag];
@@ -61,13 +61,12 @@ namespace App
 
             for (int i = 1; i < digits.Count; i++)
             {
-                if(i % 2 == 1)
+                if (i % 2 == 1)
                 {
                     int n = digits[i] * 2;
-                    if( n > 9)
+                    if (n > 9)
                     {
-                        List<int> digitsFromN = ListOfDigits(n);
-                        n = SumOfDigits(digitsFromN);
+                        n = SumOfDigits(ListOfDigits(n));
                     }
 
                     digits[i] = n;
@@ -83,14 +82,14 @@ namespace App
 
             return isValid;
 
-
         }
 
         private static int SumOfDigits(List<int> digits)
         {
             int sum = 0;
 
-            foreach(int digit in digits) {
+            foreach (int digit in digits)
+            {
                 sum = sum + digit;
             }
 
@@ -106,6 +105,37 @@ namespace App
             }
 
             return digits;
+        }
+
+
+        public string evaluateFlag(long creditCard)
+        {
+            string flag = FLAG_NOT_FOUND;
+
+            foreach (KeyValuePair<string, Rule> pair in rules)
+            {
+                Rule rule = pair.Value;
+                int[] startingDigit = rule.startingDigit;
+
+                List<int> cc = ListOfDigits(creditCard);
+
+                foreach (int d in startingDigit)
+                {
+                    List<int> digit = ListOfDigits(d);
+
+                    for (int i = 0; i < digit.Count; i++)
+                    {
+                        if(digit[i] != cc[i])
+                        {
+                            break;
+                        }
+
+                        flag = pair.Key;
+                    }
+                }
+            }
+
+            return flag;
         }
     }
 }

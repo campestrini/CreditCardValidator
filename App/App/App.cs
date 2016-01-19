@@ -14,7 +14,7 @@ namespace App
             Rule amexRule = new Rule(new int[] { 34, 37 }, new int[] { 15 });
             validator.addRule("AMEX", amexRule);
 
-            long creditCard = 4111111111111111;
+            long creditCard = 378282246310005;
             bool valid = validator.isValid(creditCard);
 
         }
