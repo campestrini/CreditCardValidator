@@ -23,7 +23,7 @@
             }
 
             string flag = _validator.evaluateFlag(creditCardNumber);
-            string message = flag + ": " + creditCardNumber.ToString() + " (" + isValid + ")";
+            string message = flag + ": " + creditCardNumber.ToString() + " (" + isValid + ").";
 
             return message;
         }
