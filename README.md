@@ -19,10 +19,8 @@ validator.addRule("AMEX", rule);
 ```
 Evaluate if credit card number is valid.
 ```
-long creditCard = 378282246310005;
+string creditCard = 378282246310005;
 bool valid = validator.isValid(creditCard);
-
-
 ```
 Get the credit card flag:
 ```
