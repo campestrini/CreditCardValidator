@@ -70,10 +70,10 @@ namespace Test
         public void ValidatorShouldEvaluateAsValid()
         {
             Assert.IsTrue(_validator.isValid("4408041234567893"));
-        ///    Assert.IsTrue(_validator.isValid("4111111111111111"));
-           Assert.IsTrue(_validator.isValid("4012888888881881"));
-           /// Assert.IsTrue(_validator.isValid("378282246310005"));
-            ///Assert.IsTrue(_validator.isValid("5105105105105100"));
+            Assert.IsTrue(_validator.isValid("4111111111111111"));
+            Assert.IsTrue(_validator.isValid("4012888888881881"));
+            Assert.IsTrue(_validator.isValid("378282246310005"));
+            Assert.IsTrue(_validator.isValid("5105105105105100"));
         }
 
         [TestMethod]
@@ -84,12 +84,6 @@ namespace Test
             Assert.IsFalse(_validator.isValid("9111111111111111"));
         }
 
-        //[TestMethod]
-        //[DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV", "validNumbers.csv", "validNumbers#csv", DataAccessMethod.Sequential), DeploymentItem("validNumbers.csv")]
-        //public void ValidatorShouldEvaluateAsValidWithFile()
-        //{
-        //    Assert.IsTrue(_validator.isValid(Convert.ToInt64(TestContext.DataRow["FirstNumber"])));
-        //}
         [TestMethod]
         public void ValidatorShouldEvaluateFlagProperly()
         {
