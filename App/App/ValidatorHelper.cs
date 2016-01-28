@@ -13,7 +13,7 @@
             this._validator = validator;
         }
 
-        public string validationMessage(long creditCardNumber)
+        public string validationMessage(string creditCardNumber)
         {
             string isValid = INVALID_CREDIT_CARD;
 

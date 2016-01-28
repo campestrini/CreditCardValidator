@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace App
 {
@@ -46,95 +47,68 @@ namespace App
             return rules[flag];
         }
 
-        public bool isValid(long creditCardNumber)
+        public bool isValid(string creditCardNumber)
         {
+            Console.WriteLine(creditCardNumber);
 
             bool isValid = false;
-
-            if (creditCardNumber <= 0)
-            {
-                throw new ArgumentException(INVALID_CREDIT_CARD);
-            }
-
-            List<int> digits = ListOfDigits(creditCardNumber);
-            digits.Reverse();
-
-            for (int i = 1; i < digits.Count; i++)
+            int[] cc = Array.ConvertAll(creditCardNumber.ToCharArray(), c => (int)Char.GetNumericValue(c));
+            Array.Reverse(cc);
+         
+            for (int i = 1; i < cc.Length; i++)
             {
                 if (i % 2 == 1)
                 {
-                    int n = digits[i] * 2;
-                    if (n > 9)
-                    {
-                        n = SumOfDigits(ListOfDigits(n));
-                    }
+                    int digit = cc[i] * 2;
 
-                    digits[i] = n;
+                    if (digit > 9)
+                    {
+                        digit = SumOfDigits(digit);
+                    }
+                    cc[i] = digit;
                 }
             }
 
-            int finalSum = SumOfDigits(digits);
-
-            if (finalSum % 10 == 0)
+            if (cc.Sum() % 10 == 0)
             {
                 isValid = true;
             }
-
+            
             return isValid;
-
         }
 
-        private static int SumOfDigits(List<int> digits)
+        private static int SumOfDigits(int number)
         {
             int sum = 0;
-
-            foreach (int digit in digits)
+            while (number != 0)
             {
-                sum = sum + digit;
+                sum += number % 10;
+                number /= 10;
             }
 
             return sum;
         }
 
-        private static List<int> ListOfDigits(long number)
-        {
-            List<int> digits = new List<int>();
-            foreach (char n in number.ToString().ToCharArray())
-            {
-                digits.Add((int)char.GetNumericValue(n));
-            }
-
-            return digits;
-        }
-
-
-        public string evaluateFlag(long creditCard)
+        public string evaluateFlag(string creditCardNumber)
         {
             string flag = FLAG_NOT_FOUND;
 
             foreach (KeyValuePair<string, Rule> pair in rules)
             {
                 Rule rule = pair.Value;
-                int[] startingDigit = rule.startingDigit;
+                string[] startingDigit = rule.startingDigit.Select(n => Convert.ToString(n)).ToArray();
 
-                List<int> cc = ListOfDigits(creditCard);
-
-                foreach (int d in startingDigit)
+                foreach (string digit in startingDigit)
                 {
-                    List<int> digit = ListOfDigits(d);
+                    string slicedCreditCard = creditCardNumber.Substring(0, digit.Length);
 
-                    for (int i = 0; i < digit.Count; i++)
+                    if (digit.Equals(slicedCreditCard))
                     {
-                        if(digit[i] != cc[i])
-                        {
-                            break;
-                        }
-
                         flag = pair.Key;
+                        break;
                     }
                 }
             }
-
             return flag;
         }
     }
