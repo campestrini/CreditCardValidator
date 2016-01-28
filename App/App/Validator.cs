@@ -52,7 +52,7 @@ namespace App
             Console.WriteLine(creditCardNumber);
 
             bool isValid = false;
-            int[] cc = Array.ConvertAll(creditCardNumber.ToCharArray(), c => (int)Char.GetNumericValue(c));
+            int[] cc = Array.ConvertAll(creditCardNumber.ToCharArray(), c => (int)char.GetNumericValue(c));
             Array.Reverse(cc);
          
             for (int i = 1; i < cc.Length; i++)
