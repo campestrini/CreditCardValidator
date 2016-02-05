@@ -69,19 +69,19 @@ namespace Test
         [TestMethod]
         public void ValidatorShouldEvaluateAsValid()
         {
-            Assert.IsTrue(_validator.isValid("4408041234567893"));
-            Assert.IsTrue(_validator.isValid("4111111111111111"));
-            Assert.IsTrue(_validator.isValid("4012888888881881"));
-            Assert.IsTrue(_validator.isValid("378282246310005"));
-            Assert.IsTrue(_validator.isValid("5105105105105100"));
+            Assert.IsTrue(Validator.IsValid("4408041234567893"));
+            Assert.IsTrue(Validator.IsValid("4111111111111111"));
+            Assert.IsTrue(Validator.IsValid("4012888888881881"));
+            Assert.IsTrue(Validator.IsValid("378282246310005"));
+            Assert.IsTrue(Validator.IsValid("5105105105105100"));
         }
 
         [TestMethod]
         public void ValidatorShouldEvaluateAsInvalid()
         {
-            Assert.IsFalse(_validator.isValid("4111111111111"));
-            Assert.IsFalse(_validator.isValid("5105105105105106"));
-            Assert.IsFalse(_validator.isValid("9111111111111111"));
+            Assert.IsFalse(Validator.IsValid("4111111111111"));
+            Assert.IsFalse(Validator.IsValid("5105105105105106"));
+            Assert.IsFalse(Validator.IsValid("9111111111111111"));
         }
 
         [TestMethod]

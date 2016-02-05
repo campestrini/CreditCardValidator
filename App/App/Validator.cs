@@ -47,10 +47,8 @@ namespace App
             return rules[flag];
         }
 
-        public bool isValid(string creditCardNumber)
+        public static bool IsValid(string creditCardNumber)
         {
-            Console.WriteLine(creditCardNumber);
-
             bool isValid = false;
             int[] cc = Array.ConvertAll(creditCardNumber.ToCharArray(), c => (int)char.GetNumericValue(c));
             Array.Reverse(cc);

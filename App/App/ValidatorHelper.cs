@@ -17,7 +17,7 @@
         {
             string isValid = INVALID_CREDIT_CARD;
 
-            if(_validator.isValid(creditCardNumber))
+            if(Validator.IsValid(creditCardNumber))
             {
                 isValid = VALID_CREDIT_CARD;
             }
